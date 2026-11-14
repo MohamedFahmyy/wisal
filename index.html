@@ -337,6 +337,247 @@
 
 
 
+
+<style id="mobile-optimized-styles">
+/* ====================================================
+   MOBILE VIEWPORT OPTIMIZATIONS (Smartphones & Tablets)
+   ==================================================== */
+
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Fix iOS Safari input zoom issue (must be at least 16px) */
+input[type="text"],
+input[type="tel"],
+input[type="number"],
+textarea,
+select {
+  font-size: 16px !important;
+}
+
+@media (max-width: 600px) {
+  /* 1. Body & Stage Layout */
+  .lb-doc, .lb-stage {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    margin: 0 auto !important;
+  }
+
+  /* 2. Intro Envelope */
+  .lb-intro-play {
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    font-size: 21px !important;
+    padding: 10px 24px !important;
+    min-height: 48px !important;
+    touch-action: manipulation;
+  }
+
+  /* 3. Hero Video Section */
+  #video-1l8ryc {
+    --block-pt: 0px !important;
+    --block-pb: 12px !important;
+  }
+  #video-1l8ryc .lb-video-text {
+    --video-text-x: 0% !important;
+    text-align: center !important;
+    width: 90% !important;
+  }
+  #video-1l8ryc .lb-video-text[data-section-text-index="0"] {
+    font-size: clamp(32px, 8.5vw, 44px) !important;
+    --video-text-y: -14% !important;
+  }
+  #video-1l8ryc .lb-video-text[data-section-text-index="1"] {
+    font-size: clamp(22px, 6vw, 30px) !important;
+    --video-text-y: -23% !important;
+  }
+  #video-1l8ryc .lb-video-text[data-section-text-index="2"] {
+    font-size: clamp(15px, 4vw, 19px) !important;
+    --video-text-y: -4% !important;
+  }
+
+  /* 4. Scratch Card */
+  #custom_html-tu9oor #farhaArabicDate {
+    padding: 20px 8px 10px !important;
+  }
+  #custom_html-tu9oor #farhaArabicDate .fad-title {
+    font-size: 30px !important;
+  }
+  #custom_html-tu9oor #farhaArabicDate .fad-cards {
+    gap: 7px !important;
+    padding: 0 4px !important;
+  }
+  #custom_html-tu9oor #farhaArabicDate .fad-card-wrap {
+    width: 32% !important;
+    max-width: 105px !important;
+  }
+  #custom_html-tu9oor #farhaArabicDate .fad-card {
+    height: 114px !important;
+    border-radius: 14px !important;
+  }
+  #custom_html-tu9oor #farhaArabicDate .fad-value {
+    font-size: 26px !important;
+  }
+  #custom_html-tu9oor #farhaArabicDate .fad-month {
+    font-size: 19px !important;
+  }
+
+  /* 5. Timeline Layout & Images */
+  #custom_html-o9tdya {
+    overflow: hidden !important;
+    position: relative !important;
+  }
+  #custom_html-o9tdya .farha-ar-timeline .fat-stage {
+    padding: 25px 8px 35px !important;
+    max-width: 100% !important;
+  }
+  #custom_html-o9tdya .farha-ar-timeline .fat-title {
+    font-size: 26px !important;
+  }
+  /* Constrain the timeline floating overlay images on mobile */
+  #custom_html-o9tdya .lb-section-text.lb-ovl--image {
+    --section-text-w: 24% !important;
+    max-width: 82px !important;
+  }
+  #custom_html-o9tdya .lb-section-text.lb-ovl--image img {
+    max-height: 82px !important;
+    object-fit: contain !important;
+  }
+  /* Adjust left and right image positions to avoid screen edge clipping */
+  #custom_html-o9tdya .lb-section-text.lb-ovl--image[data-section-text-index="0"] {
+    --video-text-x: -21% !important;
+  }
+  #custom_html-o9tdya .lb-section-text.lb-ovl--image[data-section-text-index="1"] {
+    --video-text-x: 21% !important;
+  }
+  #custom_html-o9tdya .lb-section-text.lb-ovl--image[data-section-text-index="2"] {
+    --video-text-x: -21% !important;
+  }
+  #custom_html-o9tdya .lb-section-text.lb-ovl--image[data-section-text-index="3"] {
+    --video-text-x: 21% !important;
+  }
+  #custom_html-o9tdya .lb-section-text.lb-ovl--image[data-section-text-index="4"] {
+    --video-text-x: -21% !important;
+  }
+
+  /* 6. Countdown Timer */
+  #custom_html-l3u46d .farha-ar-countdown {
+    padding: 15px 8px !important;
+  }
+  #custom_html-l3u46d .farha-ar-countdown .facd-grid {
+    gap: 6px !important;
+    padding: 0 6px !important;
+  }
+  #custom_html-l3u46d .farha-ar-countdown .facd-card {
+    height: 82px !important;
+    border-radius: 14px !important;
+  }
+  #custom_html-l3u46d .farha-ar-countdown .facd-number {
+    font-size: 25px !important;
+  }
+  #custom_html-l3u46d .farha-ar-countdown .facd-label {
+    font-size: 12px !important;
+  }
+
+  /* 7. Venue Section */
+  #custom_html-s6afff #farhaVenueSection {
+    padding: 35px 12px 45px !important;
+  }
+  #custom_html-s6afff #farhaVenueSection .fvs-title {
+    font-size: 30px !important;
+  }
+  #custom_html-s6afff #farhaVenueSection .fvs-hall {
+    font-size: 26px !important;
+  }
+  #custom_html-s6afff #farhaVenueSection .fvs-address {
+    font-size: 15px !important;
+    margin: 12px auto 24px !important;
+  }
+  #custom_html-s6afff #farhaVenueSection .fvs-map {
+    width: calc(100% - 16px) !important;
+    max-width: 360px !important;
+    height: 250px !important;
+    border-radius: 16px !important;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08) !important;
+    margin-bottom: 24px !important;
+  }
+  #custom_html-s6afff #farhaVenueSection .fvs-button {
+    min-height: 48px !important;
+    padding: 12px 36px !important;
+    font-size: 17px !important;
+    border-radius: 25px !important;
+    box-shadow: 0 6px 18px rgba(185, 148, 80, 0.3) !important;
+  }
+
+  /* 8. RSVP Card */
+  #rsvp {
+    padding: 25px 10px 45px !important;
+  }
+  #rsvp .mfr-card {
+    width: 100% !important;
+    max-width: 360px !important;
+    padding: 32px 16px 36px !important;
+    border-radius: 22px !important;
+    box-shadow: 0 10px 32px rgba(44, 38, 32, 0.12) !important;
+  }
+  #rsvp .mfr-title {
+    font-size: 28px !important;
+  }
+  #rsvp .mfr-choices {
+    gap: 8px !important;
+  }
+  #rsvp .mfr-choice {
+    min-height: 48px !important;
+    padding: 10px 8px !important;
+    font-size: 14px !important;
+  }
+
+  /* 9. Ending Section */
+  #custom_html-k8ujzo {
+    --block-pt: 30px !important;
+    --block-pb: 50px !important;
+    background-size: cover !important;
+    background-position: center !important;
+  }
+  #custom_html-k8ujzo .farha-ar-ending {
+    padding: 40px 16px 45px !important;
+    max-width: 350px !important;
+  }
+  #custom_html-k8ujzo .farha-ar-ending .fae-title {
+    font-size: 26px !important;
+  }
+  #custom_html-k8ujzo .farha-ar-ending .fae-message {
+    font-size: 15px !important;
+    line-height: 1.8 !important;
+  }
+  #custom_html-k8ujzo .farha-ar-ending .fae-second {
+    font-size: 14px !important;
+    line-height: 1.75 !important;
+  }
+  #custom_html-k8ujzo .farha-ar-ending .fae-final {
+    font-size: 22px !important;
+  }
+  #custom_html-k8ujzo .farha-ar-ending .fae-names {
+    font-size: 34px !important;
+  }
+
+  /* 10. Floating Music Button */
+  .lb-music {
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px)) !important;
+    left: 16px !important;
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 20px !important;
+    box-shadow: 0 4px 16px rgba(181, 138, 74, 0.45) !important;
+    z-index: 9999 !important;
+  }
+}
+</style>
+
 </head>
 
 <body class="lb-doc"
