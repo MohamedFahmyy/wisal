@@ -5571,7 +5571,7 @@ select {
 
 
       <footer class="lb-footer">
-        صُممت هذه الدعوة بحب في <a href="/">Wisal</a>
+        صُممت هذه الدعوة بحب في <a href="https://wa.me/201112194828?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%20%D9%88%D9%90%D8%B5%D8%A7%D9%84%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%B7%D9%84%D8%A8%20%D8%AF%D8%B9%D9%88%D8%A9%20%D8%A5%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A%D8%A9" target="_blank" rel="noopener noreferrer">Wisal</a>
       </footer>
 
     </div>
@@ -5586,7 +5586,10 @@ select {
       type="application/json">{"url": "audio/pearl.mp3", "autoplay": true, "loop": true, "player": "floating"}</script>
   </div>
 
-  <a class="m3-cta" href="/#packages">عايز دعوة زي دي؟ اطلبها من Wisal</a>
+  <a class="m3-cta" href="https://wa.me/201112194828?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%20%D9%88%D9%90%D8%B5%D8%A7%D9%84%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%B7%D9%84%D8%A8%20%D8%AF%D8%B9%D9%88%D8%A9%20%D8%A5%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A%D8%A9%20%D9%85%D8%AB%D9%84%20%D9%87%D8%B0%D9%87%20%D8%A7%D9%84%D8%AF%D8%B9%D9%88%D8%A9" target="_blank" rel="noopener noreferrer">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 6px;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    عايز دعوة زي دي؟ اطلبها من Wisal
+  </a>
   <style>
     .m3-cta {
       position: fixed;
@@ -5594,17 +5597,26 @@ select {
       bottom: calc(14px + env(safe-area-inset-bottom, 0px));
       left: 50%;
       transform: translateX(-50%);
-      background: #76532e;
+      background: linear-gradient(135deg, #76532e 0%, #9e7545 100%);
       color: #fff;
       text-decoration: none;
-      font: 13px/1.4 'Tajawal', sans-serif;
-      padding: 9px 16px;
+      font: 500 13.5px/1.4 'Tajawal', 'Cairo', sans-serif;
+      padding: 10px 18px;
       border-radius: 999px;
       white-space: nowrap;
-      box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .4);
+      box-shadow: 0 8px 24px rgba(118, 83, 46, 0.35);
       opacity: 0;
       pointer-events: none;
-      transition: opacity .6s ease
+      transition: opacity .6s ease, transform .2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .m3-cta:hover {
+      transform: translateX(-50%) scale(1.03);
+      color: #fff;
     }
 
     .m3-cta.on {
@@ -5612,7 +5624,18 @@ select {
       pointer-events: auto
     }
   </style>
-  <script>setTimeout(function () { document.querySelector('.m3-cta').classList.add('on') }, 9000)</script>
+  <script>
+    (function() {
+      function showCta() {
+        var el = document.querySelector('.m3-cta');
+        if (el) el.classList.add('on');
+      }
+      setTimeout(showCta, 3500);
+      document.addEventListener('lb:intro-open', function() {
+        setTimeout(showCta, 800);
+      });
+    })();
+  </script>
   <script src="assets/rsvp.js"
     data-sheet="https://script.google.com/macros/s/AKfycbxPSp4QrciAt4AgidJqWr9ukDjhoiraCkdsSheNYET6wLc7gHpsbbZaY0UAeRGuwrdi/exec"></script>
   <script>/* ?wish=1 (table QR card): after the envelope opens, go straight to the reply form */
