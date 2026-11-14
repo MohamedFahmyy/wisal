@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>لوحة متابعة تأكيد الحضور (RSVP) · حفل خطوبة محمد & سلمى</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Amiri:wght@700&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #faf4e8;
+      --card-bg: #ffffff;
+      --gold: #b58a4a;
+      --gold-dark: #8c6426;
+      --gold-light: #f5e9d3;
+      --text-main: #2d261e;
+      --text-muted: #786a5a;
+      --border: #e9decb;
+      --success: #2e7d32;
+      --success-bg: #e8f5e9;
+      --danger: #c62828;
+      --danger-bg: #ffebee;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(90, 68, 37, 0.07);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: 'Cairo', sans-serif;
+      min-height: 100vh;
+      padding: 24px 16px 60px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #fffcf7 0%, #fbf3e4 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 30px 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+    .header-info h1 {
+      font-family: 'Aref Ruqaa', serif;
+      font-size: 32px;
+      color: var(--gold-dark);
+      margin-bottom: 4px;
+    }
+    .header-info p {
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, #b58a4a, #966f30);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(181, 138, 74, 0.3);
+    }
+    .btn-gold:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+    .btn-outline {
+      background: #fff;
+      border: 1px solid var(--border);
+      color: var(--text-main);
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold-dark);
+    }
+    .btn-danger-outline {
+      background: #fff;
+      border: 1px solid #ffcdd2;
+      color: var(--danger);
+    }
+    .btn-danger-outline:hover {
+      background: var(--danger-bg);
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .stat-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .stat-icon.total { background: #f2e9dc; color: #825b20; }
+    .stat-icon.attending { background: var(--success-bg); color: var(--success); }
+    .stat-icon.declined { background: var(--danger-bg); color: var(--danger); }
+    .stat-icon.guests { background: #e0f2fe; color: #0284c7; }
+    .stat-details h3 {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .stat-details .num {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    /* Main Table Section */
+    .main-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    /* Controls Bar */
+    .controls {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      background: #faf6ee;
+    }
+    .search-box {
+      flex: 1;
+      min-width: 240px;
+      position: relative;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 10px 38px 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px;
+      outline: none;
+      background: #fff;
+    }
+    .search-box input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(181, 138, 74, 0.15);
+    }
+    .search-box .icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 6px;
+      background: #ede4d3;
+      padding: 4px;
+      border-radius: 10px;
+    }
+    .filter-tab {
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .filter-tab.active {
+      background: #fff;
+      color: var(--gold-dark);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    /* Table */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: right;
+    }
+    th {
+      background: #fdfaf4;
+      padding: 14px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    td {
+      padding: 14px 18px;
+      border-bottom: 1px solid #f2eadc;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #faf6ef; }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .badge-attending {
+      background: var(--success-bg);
+      color: var(--success);
+    }
+    .badge-declined {
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+
+    .message-cell {
+      max-width: 280px;
+      color: #594d3f;
+      font-size: 13px;
+      word-break: break-word;
+    }
+    .date-cell {
+      color: var(--text-muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .action-btn {
+      background: transparent;
+      border: none;
+      color: #b0a395;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+    .action-btn:hover {
+      color: var(--danger);
+      background: var(--danger-bg);
+    }
+
+    /* Empty state */
+    .empty-state {
+      padding: 60px 20px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+    .empty-state .icon {
+      font-size: 54px;
+      margin-bottom: 14px;
+      opacity: 0.7;
+    }
+    .empty-state h3 {
+      font-size: 18px;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 16px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+    .modal h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+    .modal p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 16px 10px 40px; }
+      .header { padding: 20px 16px; }
+      .header-info h1 { font-size: 26px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .stat-card { padding: 14px; gap: 10px; }
+      .stat-details .num { font-size: 22px; }
+      .controls { padding: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Header -->
+    <header class="header">
+      <div class="header-info">
+        <h1>لوحة متابعة تأكيد الحضور 💍</h1>
+        <p>حفل خطوبة محمد & سلمى · 30 نوفمبر 2026 · قاعة Joya</p>
+      </div>
+      <div class="header-actions">
+        <a href="index.html" target="_blank" class="btn btn-outline">
+          👁️ معاينة الدعوة
+        </a>
+        <button id="btnExport" class="btn btn-gold">
+          📥 تصدير Excel (CSV)
+        </button>
+        <button id="btnRefresh" class="btn btn-outline" title="تحديث">
+          🔄 تحديث
+        </button>
+      </div>
+    </header>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon total">📋</div>
+        <div class="stat-details">
+          <h3>إجمالي الردود</h3>
+          <div class="num" id="statTotal">0</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon attending">💚</div>
+        <div class="stat-details">
+          <h3>الحاضرون المؤكدون</h3>
+          <div class="num" id="statAttending" style="color: var(--success);">0</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon declined">💔</div>
+        <div class="stat-details">
+          <h3>المعتذرون</h3>
+          <div class="num" id="statDeclined" style="color: var(--danger);">0</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon guests">👥</div>
+        <div class="stat-details">
+          <h3>إجمالي عدد الأفراد</h3>
+          <div class="num" id="statHeadcount" style="color: #0284c7;">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Table Container -->
+    <div class="main-card">
+      <div class="controls">
+        <div class="search-box">
+          <span class="icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="ابحث باسم الضيف أو نص التهنئة...">
+        </div>
+        <div class="filter-tabs">
+          <button class="filter-tab active" data-filter="all">الكل</button>
+          <button class="filter-tab" data-filter="attending">الحاضرون فقط</button>
+          <button class="filter-tab" data-filter="declined">المعتذرون فقط</button>
+        </div>
+        <button id="btnClearAll" class="btn btn-danger-outline" style="font-size: 13px; padding: 8px 14px;">
+          🗑️ مسح الكل
+        </button>
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 40px;">#</th>
+              <th>اسم الضيف</th>
+              <th>الحالة</th>
+              <th>عدد الأفراد</th>
+              <th>رسالة التهنئة</th>
+              <th>تاريخ الإرسال</th>
+              <th style="width: 50px; text-align: center;">حذف</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- Rows injected by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+      <div id="emptyState" class="empty-state" style="display: none;">
+        <div class="icon">💌</div>
+        <h3>لا توجد ردود مسجلة حتى الآن</h3>
+        <p>عندما يقوم المدعوون بتأكيد الحضور عبر صفحة الدعوة، ستظهر بياناتهم هنا فوراً.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Clear Confirmation Modal -->
+  <div class="modal-overlay" id="clearModal">
+    <div class="modal">
+      <h3>تأكيد مسح جميع الردود</h3>
+      <p>هل أنت متأكد من رغبتك في حذف كافة الردود المسجلة؟ لا يمكن التراجع عن هذا الإجراء.</p>
+      <div class="modal-actions">
+        <button class="btn btn-outline" id="btnCancelClear">إلغاء</button>
+        <button class="btn btn-gold" style="background: var(--danger);" id="btnConfirmClear">نعم، مسح الكل</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var allRecords = [];
+      var currentFilter = 'all';
+      var searchQuery = '';
+
+      var statTotal = document.getElementById('statTotal');
+      var statAttending = document.getElementById('statAttending');
+      var statDeclined = document.getElementById('statDeclined');
+      var statHeadcount = document.getElementById('statHeadcount');
+      var tableBody = document.getElementById('tableBody');
+      var emptyState = document.getElementById('emptyState');
+      var searchInput = document.getElementById('searchInput');
+      var filterTabs = document.querySelectorAll('.filter-tab');
+      var btnRefresh = document.getElementById('btnRefresh');
+      var btnExport = document.getElementById('btnExport');
+      var btnClearAll = document.getElementById('btnClearAll');
+      var clearModal = document.getElementById('clearModal');
+      var btnCancelClear = document.getElementById('btnCancelClear');
+      var btnConfirmClear = document.getElementById('btnConfirmClear');
+
+      // 1. Fetch Records (from API or localStorage)
+      function loadRecords() {
+        // Try fetching from local PHP API first
+        fetch('api/get_rsvp.php')
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            if (data && data.success && Array.isArray(data.records)) {
+              allRecords = data.records;
+              // Also sync with localStorage
+              localStorage.setItem('wisal_rsvp_responses', JSON.stringify(allRecords));
+              render();
+            } else {
+              loadFromLocalStorage();
+            }
+          })
+          .catch(function () {
+            // Fallback to localStorage if static
+            loadFromLocalStorage();
+          });
+      }
+
+      function loadFromLocalStorage() {
+        try {
+          var stored = JSON.parse(localStorage.getItem('wisal_rsvp_responses') || '[]');
+          allRecords = stored;
+        } catch (e) {
+          allRecords = [];
+        }
+        render();
+      }
+
+      // 2. Render Table & Stats
+      function render() {
+        var filtered = allRecords.filter(function (r) {
+          // Status filter
+          if (currentFilter === 'attending' && r.status !== 'attending') return false;
+          if (currentFilter === 'declined' && r.status !== 'declined') return false;
+          // Search filter
+          if (searchQuery) {
+            var q = searchQuery.toLowerCase();
+            var nameMatch = (r.name || '').toLowerCase().indexOf(q) !== -1;
+            var msgMatch = (r.message || '').toLowerCase().indexOf(q) !== -1;
+            if (!nameMatch && !msgMatch) return false;
+          }
+          return true;
+        });
+
+        // Compute Stats
+        var total = allRecords.length;
+        var attending = 0;
+        var declined = 0;
+        var headcount = 0;
+
+        allRecords.forEach(function (r) {
+          if (r.status === 'attending') {
+            attending++;
+            headcount += Math.max(1, parseInt(r.guests || 1, 10));
+          } else {
+            declined++;
+          }
+        });
+
+        statTotal.textContent = total;
+        statAttending.textContent = attending;
+        statDeclined.textContent = declined;
+        statHeadcount.textContent = headcount;
+
+        // Render Table Rows
+        if (filtered.length === 0) {
+          tableBody.innerHTML = '';
+          emptyState.style.display = 'block';
+        } else {
+          emptyState.style.display = 'none';
+          var html = '';
+          filtered.forEach(function (r, index) {
+            var isAttending = r.status === 'attending';
+            var badgeClass = isAttending ? 'badge-attending' : 'badge-declined';
+            var badgeText = isAttending ? '✓ سيحضر' : '✕ يعتذر';
+            var guestsText = isAttending ? (r.guests || 1) : '-';
+            
+            var formattedDate = '-';
+            if (r.created_at || r.date) {
+              try {
+                var d = new Date(r.created_at || r.date);
+                formattedDate = d.toLocaleDateString('ar-EG', {
+                  month: 'short',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                });
+              } catch(e) {}
+            }
+
+            html += '<tr>' +
+              '<td style="color:var(--text-muted);">' + (index + 1) + '</td>' +
+              '<td style="font-weight:700;">' + escapeHtml(r.name) + '</td>' +
+              '<td><span class="badge ' + badgeClass + '">' + badgeText + '</span></td>' +
+              '<td style="font-weight:700;">' + guestsText + '</td>' +
+              '<td class="message-cell">' + (escapeHtml(r.message) || '<span style="color:#b5a898">—</span>') + '</td>' +
+              '<td class="date-cell">' + formattedDate + '</td>' +
+              '<td style="text-align:center;">' +
+                '<button class="action-btn" data-del-id="' + r.id + '" title="حذف هذا الرد">🗑️</button>' +
+              '</td>' +
+            '</tr>';
+          });
+          tableBody.innerHTML = html;
+        }
+      }
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      // 3. Delete Single Record
+      tableBody.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-del-id]');
+        if (!btn) return;
+        var id = btn.getAttribute('data-del-id');
+        if (!confirm('هل أنت متأكد من حذف رد هذا الضيف؟')) return;
+
+        // Try API
+        fetch('api/get_rsvp.php?action=delete&id=' + encodeURIComponent(id))
+          .catch(function () {});
+
+        // Local filter
+        allRecords = allRecords.filter(function (r) { return String(r.id) !== id; });
+        localStorage.setItem('wisal_rsvp_responses', JSON.stringify(allRecords));
+        render();
+      });
+
+      // 4. Clear All Modal
+      btnClearAll.addEventListener('click', function () {
+        if (allRecords.length === 0) return;
+        clearModal.classList.add('open');
+      });
+      btnCancelClear.addEventListener('click', function () {
+        clearModal.classList.remove('open');
+      });
+      btnConfirmClear.addEventListener('click', function () {
+        clearModal.classList.remove('open');
+        fetch('api/get_rsvp.php?action=clear').catch(function () {});
+        allRecords = [];
+        localStorage.setItem('wisal_rsvp_responses', JSON.stringify([]));
+        render();
+      });
+
+      // 5. Search & Filter Tabs
+      searchInput.addEventListener('input', function (e) {
+        searchQuery = e.target.value.trim();
+        render();
+      });
+
+      filterTabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          filterTabs.forEach(function (t) { t.classList.remove('active'); });
+          tab.classList.add('active');
+          currentFilter = tab.getAttribute('data-filter');
+          render();
+        });
+      });
+
+      btnRefresh.addEventListener('click', loadRecords);
+
+      // 6. Export to CSV (Excel Compatible with UTF-8 BOM)
+      btnExport.addEventListener('click', function () {
+        if (allRecords.length === 0) {
+          alert('لا توجد بيانات لتصديرها');
+          return;
+        }
+
+        var csv = '\uFEFF'; // UTF-8 BOM for Arabic Excel
+        csv += 'م,اسم الضيف,حالة الحضور,عدد الأفراد,رسالة التهنئة,تاريخ الرد\n';
+
+        allRecords.forEach(function (r, i) {
+          var status = r.status === 'attending' ? 'حاضر' : 'معتذر';
+          var guests = r.status === 'attending' ? (r.guests || 1) : 0;
+          var name = '"' + (r.name || '').replace(/"/g, '""') + '"';
+          var msg = '"' + (r.message || '').replace(/"/g, '""') + '"';
+          var date = '"' + (r.created_at || r.date || '') + '"';
+          csv += (i + 1) + ',' + name + ',' + status + ',' + guests + ',' + msg + ',' + date + '\n';
+        });
+
+        var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'ردود_خطوبة_محمد_وسلمى_' + new Date().toISOString().slice(0, 10) + '.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+
+      // 7. Real-time updates via BroadcastChannel
+      if ('BroadcastChannel' in window) {
+        var bc = new BroadcastChannel('wisal_rsvp_channel');
+        bc.onmessage = function (ev) {
+          if (ev.data && ev.data.type === 'new_rsvp') {
+            loadRecords();
+          }
+        };
+      }
+
+      // Initial Load
+      loadRecords();
+    })();
+  </script>
+</body>
+</html>
